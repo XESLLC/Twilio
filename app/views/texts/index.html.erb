@@ -1,0 +1,68 @@
+<head>
+    <style type="text/css">
+        table {
+            width:  100%;
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        td {
+            border: 1px solid black;
+        }
+        tr {
+          z-index: 10;
+        }
+        .scrollingTable {
+            width: 95%;
+            overflow-y: auto;
+        }
+    </style>
+    <script type="text/javascript">
+        function makeTableScroll() {
+            // Constant retrieved from server-side via JSP
+            var maxRows = 25;
+            var table = document.getElementById('myTable');
+            var wrapper = table.parentNode;
+            var rowsInTable = table.rows.length;
+            var height = 0;
+            if (rowsInTable > maxRows) {
+                for (var i = 0; i < maxRows; i++) {
+                    height += table.rows[i].clientHeight;
+                }
+                wrapper.style.height = height + "px";
+            }
+        }
+
+        $(document).ready(function($) {
+          $(function () {
+            $('table.table tr').click(function () {
+              window.location = "http://localhost:3000" + $(this).data('link');
+            });
+          })
+        });
+    </script>
+
+</head>
+<body onload="makeTableScroll()">
+  <div class="scrollingTable">
+    <%= link_to "Back", root_path %>
+    <h2>
+      Text Messages
+    </h2>
+    <table id="myTable", class="table table-hover">
+      <tr>
+        <th>From</th>
+        <th>Date</th>
+        <th>Message</th>
+        <th>To</th>
+      </tr>
+      <% @messages.each do |message| %>
+        <tr data-link="<%=new_twilio_text_path(message.sid)%>" style="cursor: pointer">
+          <td> <%=message.from%> </td>
+          <td> <%=message.date_created%> </td>
+          <td> <%=message.body%> </td>
+          <td> <%=message.to%> </td>
+        </tr>
+      <%end%>
+    </table>
+  </div>
+</body>

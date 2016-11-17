@@ -1,0 +1,9 @@
+
+
+<div>
+  <% if current_user %>
+    <h2>
+      <%= link_to "Text", twilio_texts_path(current_user) %>
+    </h2>
+  <% end %>
+</div>

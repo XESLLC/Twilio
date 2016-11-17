@@ -1,0 +1,33 @@
+<%= link_to "Back", twilio_texts_path(current_user) %>
+
+<h1>New Text</h1>
+
+<%= form_tag twilio_texts_path do %>
+  <div>
+    <%= label_tag :To %>
+  </div>
+  <div>
+    <%= text_field :To, :to%>
+  </div>
+
+  <div>
+    <%= label_tag :From %>
+  </div>
+  <div>
+    <%= text_field :From, :from, :value => "12027512923"%>
+
+  </div>
+
+  <div>
+    <%= label_tag :Body %>
+  </div>
+  <div>
+    <%= text_area :Body, :body, size: "20x10", :value => "Please rate my performance this week between a 1 and 5. 1 - Very Poort and 5 - Outstanding. Thanks, Luke"%>
+  </div>
+
+
+  <div>
+    <%= submit_tag "Send Text" %>
+  </div>
+
+<% end %>
