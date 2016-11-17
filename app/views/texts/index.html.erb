@@ -56,7 +56,11 @@
         <th>To</th>
       </tr>
       <% @messages.each do |message| %>
-        <tr data-link="<%=new_twilio_text_path(message.sid)%>" style="cursor: pointer">
+          <% if message.direction == "inbound" %>
+            <tr class="bg-info" data-link="<%=new_twilio_text_path(message.sid, message.from)%>" style="cursor: pointer">
+          <% else %>
+            <tr data-link="<%=new_twilio_text_path(message.sid, message.to)%>" style="cursor: pointer">
+          <% end %>
           <td> <%=message.from%> </td>
           <td> <%=message.date_created%> </td>
           <td> <%=message.body%> </td>

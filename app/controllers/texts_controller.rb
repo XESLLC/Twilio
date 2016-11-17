@@ -5,12 +5,13 @@ class TextsController < ApplicationController
   end
 
   def new
-    @messageSID = params[:id]
+    params.permit!
+    @to = params[:format][1..-1]
   end
 
   def create
     Text.new.send_text(params)
-    redirect_to new_twilio_text_path
+    redirect_to twilio_texts_path
   end
 
 
