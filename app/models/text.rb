@@ -11,7 +11,6 @@ class Text
 
   def send_text(params)
     params.permit!
-    binding.pry
     client.account.messages.create({
       :from => params[:From][:from],
       :to => params[:To][:to],
